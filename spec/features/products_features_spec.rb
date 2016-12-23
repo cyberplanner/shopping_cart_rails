@@ -60,5 +60,18 @@ feature 'products' do
 
   end
 
+  context 'deleting products' do
+      scenario 'let the admin delete a product' do
+        smoke_sensor = create(:product, name: "Smoke Sensor",
+                              price: 19.99)
 
+        visit '/products'
+
+
+        click_link 'Smoke Sensor'
+        click_link 'Delete Smoke Sensor'
+        expect(page).not_to have_content 'Smoke Sensor'
+        expect(page).to have_content 'Product deleted successfully'
+      end
+    end
 end

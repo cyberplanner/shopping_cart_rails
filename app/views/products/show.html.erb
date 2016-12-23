@@ -2,3 +2,4 @@
 £<%= @product.price %>
 
 <%= link_to "Edit #{@product.name}", edit_product_path(@product) %>
+<%= link_to "Delete #{@product.name}", product_path(@product), method: :delete %>
