@@ -1,2 +1,4 @@
 <%= @product.name %>
 £<%= @product.price %>
+
+<%= link_to "Edit #{@product.name}", edit_product_path(@product) %>

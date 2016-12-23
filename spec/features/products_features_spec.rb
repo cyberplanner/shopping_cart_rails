@@ -40,4 +40,25 @@ feature 'products' do
       expect(current_path).to eq "/products/#{product1.id}"
     end
   end
+
+  context 'editing products' do
+
+    scenario 'let the admin edit or update a product' do
+      smoke_sensor = create(:product, name: "Smoke Sensor",
+                            price: 19.99)
+      visit '/products'
+
+      click_link 'Smoke Sensor'
+      click_link 'Edit Smoke Sensor'
+      fill_in 'Name', with: 'Smart Smoke Sensor 3000'
+      fill_in 'Price', with: '24.99'
+      click_button 'Update Product'
+      expect(page).to have_content 'Smart Smoke Sensor 3000'
+      expect(page).to have_content '£24.99'
+      expect(current_path).to eq '/products'
+    end
+
+  end
+
+
 end
