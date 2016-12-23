@@ -18,4 +18,16 @@ feature 'products' do
       expect(page).not_to have_content('no products yet')
     end
   end
+  context 'creating products' do
+    scenario 'prompt user to fill out form which displays new product' do
+      visit '/products'
+      click_link 'add product'
+      fill_in "Name", with: "smarthub"
+      fill_in "Price", with: "2.99"
+      click_button "Create Product"
+      expect(page).to have_content('smarthub')
+      expect(page).to have_content("£2.99")
+      expect(current_path).to eq "/products"
+    end
+  end
 end

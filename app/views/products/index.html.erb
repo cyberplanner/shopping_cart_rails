@@ -1,6 +1,7 @@
 <% if @products.all.any? %>
   <% @products.each do |p| %>
     <%= p.name %>
+    £<%= p.price %>
   <% end %>
 <% else %>
   <h1>no products yet</h1>
