@@ -30,4 +30,14 @@ feature 'products' do
       expect(current_path).to eq "/products"
     end
   end
+  context 'viewing individual products' do
+    scenario 'let user view individual product' do
+      product1 = create(:product, name: 'xbox', price: 399.05)
+      visit '/products'
+      click_link 'xbox'
+      expect(page).to have_content 'xbox'
+      expect(page).to have_content '£399.05'
+      expect(current_path).to eq "/products/#{product1.id}"
+    end
+  end
 end
