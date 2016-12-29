@@ -35,11 +35,11 @@ feature "User can sign in and out" do
       expect(page).not_to have_link 'Sign up'
     end
 
-    it "should see a link to his shopping basket" do
-      visit '/'
-      expect(page).to have_link 'My basket'
-      click_link 'My basket'
-      expect(page).to have_content 'Basket is empty!'
-    end
+    # it "should see a link to his shopping basket" do
+    #   visit '/'
+    #   expect(page).to have_link 'My basket'
+    #   click_link 'My basket'
+    #   expect(page).to have_content 'Basket is empty!'
+    # end
   end
 end

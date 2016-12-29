@@ -3,6 +3,7 @@
     <% @products.each do |p| %>
     <li><%= link_to p.name, product_path(p) %></li>
     <p>£<%= p.price %></p>
+    <%= link_to "Order #{p.name}", new_product_item_path %>
     <% end %>
   <% else %>
     <h1>No products yet</h1>
