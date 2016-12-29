@@ -1,44 +1,60 @@
 require 'rails_helper'
 
 feature 'products' do
-  context 'no products yet' do
-    scenario 'should display to add products' do
+  context 'No products added yet' do
+    scenario 'should display a prompt to add a product' do
       visit '/'
-      expect(page).to have_content 'no products yet'
-      expect(page).to have_link 'add product'
+      log_in
+
+      expect(page).to have_content 'No products yet'
+      expect(page).to have_link 'Add a product'
     end
   end
-  context 'products have been added' do
+
+  context 'Products have been added' do
     before do
-    Product.create(name: 'smarthub')
+      Product.create(name: 'Smart Hub')
     end
+
     scenario 'display products' do
       visit '/products'
-      expect(page).to have_content('smarthub')
-      expect(page).not_to have_content('no products yet')
+      log_in
+
+      expect(page).to have_content('Smart Hub')
+      expect(page).not_to have_content('No products yet')
     end
   end
+
   context 'creating products' do
-    scenario 'prompt user to fill out form which displays new product' do
+    scenario 'prompts the admin to fill out a form, then displays the new product' do
       visit '/products'
-      click_link 'add product'
-      fill_in "Name", with: "smarthub"
-      fill_in "Price", with: "2.99"
-      click_button "Create Product"
-      expect(page).to have_content('smarthub')
-      expect(page).to have_content("£2.99")
-      expect(current_path).to eq "/products"
+      log_in
+
+      click_link 'Add a product', :match => :prefer_exact
+      fill_in 'Name', with: 'Motion Sensor'
+      fill_in 'Price', with: '24.99'
+      click_button 'Create Product'
+      expect(page).to have_content 'Motion Sensor'
+      expect(page).to have_content '£24.99'
+      expect(current_path).to eq '/products'
     end
   end
-  context 'viewing individual products' do
-    scenario 'let user view individual product' do
-      product1 = create(:product, name: 'xbox', price: 399.05)
+
+  context 'viewing products' do
+
+    scenario 'lets a user view products' do
+      smoke_sensor = create(:product, name: "Smoke Sensor",
+                            price: 19.99)
+
       visit '/products'
-      click_link 'xbox'
-      expect(page).to have_content 'xbox'
-      expect(page).to have_content '£399.05'
-      expect(current_path).to eq "/products/#{product1.id}"
+      log_in
+
+      click_link 'Smoke Sensor'
+      expect(page).to have_content 'Smoke Sensor'
+      expect(page).to have_content '£19.99'
+      expect(current_path).to eq "/products/#{smoke_sensor.id}"
     end
+
   end
 
   context 'editing products' do
@@ -47,6 +63,7 @@ feature 'products' do
       smoke_sensor = create(:product, name: "Smoke Sensor",
                             price: 19.99)
       visit '/products'
+      log_in
 
       click_link 'Smoke Sensor'
       click_link 'Edit Smoke Sensor'
@@ -61,17 +78,18 @@ feature 'products' do
   end
 
   context 'deleting products' do
-      scenario 'let the admin delete a product' do
-        smoke_sensor = create(:product, name: "Smoke Sensor",
-                              price: 19.99)
+    scenario 'let the admin delete a product' do
+      smoke_sensor = create(:product, name: "Smoke Sensor",
+                            price: 19.99)
 
-        visit '/products'
+      visit '/products'
+      log_in
 
-
-        click_link 'Smoke Sensor'
-        click_link 'Delete Smoke Sensor'
-        expect(page).not_to have_content 'Smoke Sensor'
-        expect(page).to have_content 'Product deleted successfully'
-      end
+      click_link 'Smoke Sensor'
+      click_link 'Delete Smoke Sensor'
+      expect(page).not_to have_content 'Smoke Sensor'
+      expect(page).to have_content 'Product deleted successfully'
     end
+  end
+
 end
