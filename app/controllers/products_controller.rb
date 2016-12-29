@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
 
   def create
     Product.create product_params
-    redirect_to '/products'
+    redirect_to products_path
   end
 
   def show
@@ -25,15 +25,15 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.update(product_params)
 
-    redirect_to '/products'
+    redirect_to products_path
   end
 
   def destroy
     @product= Product.find(params[:id])
     @product.destroy
-    
+
     flash[:notice] = "Product deleted successfully"
-    redirect_to '/products'
+    redirect_to products_path
   end
 
 

@@ -1,0 +1,6 @@
+<%= simple_form_for [@product, @item] do |f| %>
+  <%= f.input :quantity %>
+  <%= f.input :name, :as => :hidden, input_html: {value: @product.name} %>
+  <%= f.input :price, :as => :hidden, input_html: {value: @product.price}  %>
+  <%= f.button :submit, "Add to basket" %>
+<% end %>
