@@ -23,6 +23,7 @@ gem 'devise'
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'rspec-collection_matchers'
 end
 
 group :development, :test do
@@ -36,4 +37,3 @@ group :development do
 
   gem 'spring'
 end
-

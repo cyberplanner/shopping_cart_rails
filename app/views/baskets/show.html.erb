@@ -1,6 +1,6 @@
 <% if @items.any? %>
   <% @items.each do |item| %>
-    <h5><%= item.name%> : <span><small><%= item.quantity%></span></small></h4>
+    <h4><%= item.name%> : </h4><p><%= item.quantity%></p>
     <% @subtotal += (item.price * item.quantity) %>
   <% end %>
   <h4>Subtotal: £<%= @subtotal%></h4>
