@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  devise_scope :user do
+    resource :basket, only: [:show]
+  end
   # devise_scope :user do
   #   get 'user/basket', :to => 'users#basket'
   # end

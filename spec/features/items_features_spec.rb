@@ -4,14 +4,16 @@ feature 'ordering' do
   before do
     Product.create name: 'sensor', price: 2.99
   end
-    scenario 'user can see a order button but can order items' do
+    scenario 'user can order items' do
       log_in
-      visit '/products'
-      click_link 'Order sensor'
-      fill_in "Quantity", with: 2
-      click_button "Add to basket"
+      order_item
 
       expect(current_path).to eq '/products'
       expect(page).to have_content "2 item(s) were added to basket"
+      click_link 'My basket'
+      expect(current_path).to eq basket_path
+      expect(page).to have_content "sensor : 2"
+      expect(page).to have_content "Subtotal: £5.98"
     end
+
 end
