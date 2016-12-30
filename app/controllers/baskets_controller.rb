@@ -1,6 +1,7 @@
 class BasketsController < ApplicationController
 
   def show
-    @user = current_user
+    @items = current_user.items
+    @subtotal = 0
   end
 end

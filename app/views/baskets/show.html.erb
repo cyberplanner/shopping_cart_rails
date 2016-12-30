@@ -1,7 +1,9 @@
-<% if @user.items.any? %>
-  <% @user.items.each do |i| %>
-    <h4><%= i.name%> :<span><%= i.quantity%></span></h4>
+<% if @items.any? %>
+  <% @items.each do |item| %>
+    <h5><%= item.name%> : <span><small><%= item.quantity%></span></small></h4>
+    <% @subtotal += (item.price * item.quantity) %>
   <% end %>
+  <h4>Subtotal: £<%= @subtotal%></h4>
 <% else %>
   No items yet
 <% end %>
