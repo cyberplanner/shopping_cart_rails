@@ -1,0 +1,7 @@
+<% if @user.items.any? %>
+  <% @user.items.each do |i| %>
+    <h4><%= i.name%> :<span><%= i.quantity%></span></h4>
+  <% end %>
+<% else %>
+  No items yet
+<% end %>
